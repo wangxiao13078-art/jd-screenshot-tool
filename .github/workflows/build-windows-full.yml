@@ -1,0 +1,38 @@
+name: Build Windows Full Version (带截图功能)
+
+on:
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller playwright pillow gradio
+        playwright install chromium
+    
+    - name: Build executable with Playwright
+      run: |
+        pyinstaller --onefile --windowed --name "京东截图编辑工具-完整版" `
+          --add-data "$env:LOCALAPPDATA/ms-playwright;ms-playwright/" `
+          --hidden-import=playwright `
+          --hidden-import=gradio `
+          --collect-all playwright `
+          --collect-all gradio `
+          app.py
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: jd-screenshot-full-windows
+        path: dist/京东截图编辑工具-完整版.exe
+
