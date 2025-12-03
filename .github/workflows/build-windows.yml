@@ -1,0 +1,31 @@
+name: Build Windows Portable
+
+on:
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller pillow
+    
+    - name: Build executable
+      run: |
+        pyinstaller --onefile --windowed --name "京东截图编辑工具" app_portable.py
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: 京东截图编辑工具_Windows
+        path: dist/京东截图编辑工具.exe
+
