@@ -26,6 +26,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: 京东截图编辑工具_Windows
+        name: jd-screenshot-windows
         path: dist/京东截图编辑工具.exe
+
 
