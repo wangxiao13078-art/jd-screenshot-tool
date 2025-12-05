@@ -67,7 +67,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='京东截图编辑工具',
+    name='京东截图编辑工具-完整版',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
